@@ -3,24 +3,30 @@
 import React from "react";
 import { sidebarItem } from "./sidebar";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-const SidebarItem = ({ icon, label, href }: sidebarItem) => {
+const SidebarItem = ({ icon: Icon, label, href }: sidebarItem) => {
+  const router = useRouter();
   const pathname = usePathname();
 
-  const isActive = pathname === href;
+  const isActive =
+    pathname === href ||
+    (pathname === "/" && href === "/") ||
+    pathname?.startsWith(`${href}/`);
+
   return (
-    <Link
-      href={href}
+    <button
+      type="button"
+      onClick={()=>router.push(href)}
       className={cn(
-        "flex items-center gap-2 w-full p-2 rounded-md border border-transparent hover:border-zinc-900",
-        isActive && "bg-accentpurple border-zinc-900"
+        "flex items-center gap-2 w-full p-2 rounded-md text-zinc-700 hover:border-zinc-900",
+        isActive && "bg-zinc-200 text-zinc-950"
       )}
     >
-      {icon}
+      <Icon size={20}/>
       <span className="font-medium">{label}</span>
-    </Link>
+    </button>
   );
 };
 

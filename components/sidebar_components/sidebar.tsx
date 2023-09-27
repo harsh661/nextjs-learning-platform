@@ -1,21 +1,26 @@
+"use client";
+
 import { IconType } from "react-icons";
-import { TbDashboard, TbPlayerPlay } from "react-icons/tb";
+import { MdOutlineDashboardCustomize } from "react-icons/md";
+import { IoLogoBuffer } from "react-icons/io";
+import { LuCompass } from "react-icons/lu";
 import SidebarItem from "./sidebar-item";
+import { UserButton } from "@clerk/nextjs";
 
 export type sidebarItem = {
-  icon: React.ReactNode;
+  icon: IconType;
   label: string;
   href: string;
 };
 
 const sidebarItems: sidebarItem[] = [
   {
-    icon: <TbDashboard size={20}/>,
+    icon: MdOutlineDashboardCustomize,
     label: "Dashboard",
     href: "/",
   },
   {
-    icon: <TbPlayerPlay size={20}/>,
+    icon: LuCompass,
     label: "Browse",
     href: "/search",
   },
@@ -23,17 +28,25 @@ const sidebarItems: sidebarItem[] = [
 
 const Sidebar = () => {
   return (
-    <div className="h-full w-full border-r border-zinc-900 p-3">
-      <div className="text-2xl font-semibold p-5">LearnIt</div>
-      <div className="flex flex-col gap-3 py-5">
-        {sidebarItems.map((item) => (
-          <SidebarItem
-            key={item.href}
-            label={item.label}
-            href={item.href}
-            icon={item.icon}
-          />
-        ))}
+    <div className="flex flex-col h-full w-full border-r p-3">
+      <div className="text-2xl font-semibold px-2 py-5 flex items-center gap-2">
+        <IoLogoBuffer />
+        LearnIt
+      </div>
+      <div className="flex flex-col h-full justify-between">
+        <div className="flex flex-col gap-3 py-5">
+          {sidebarItems.map((item) => (
+            <SidebarItem
+              key={item.href}
+              label={item.label}
+              href={item.href}
+              icon={item.icon}
+            />
+          ))}
+        </div>
+        <div className="p-2 flex items-center">
+          <UserButton afterSignOutUrl="/sign-in" />
+        </div>
       </div>
     </div>
   );
