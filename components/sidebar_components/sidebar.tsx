@@ -28,7 +28,7 @@ const sidebarItems: sidebarItem[] = [
 
 const Sidebar = () => {
   return (
-    <div className="flex flex-col h-full w-full border-r p-3">
+    <div className="flex flex-col bg-white h-full w-full border-r p-3">
       <div className="text-2xl font-semibold px-2 py-5 flex items-center gap-2">
         <IoLogoBuffer />
         LearnIt
